@@ -3,16 +3,16 @@ import { MealService } from './meal.service';
 import { CreateMealInput } from './create-meal.input';
 import { MealType } from './meal.types';
 
-@Resolver(of => MealType)
+@Resolver(() => MealType)
 export class MealResolver {
   constructor(private mealService: MealService) {}
 
-  @Query(returns => [MealType])
+  @Query(() => [MealType])
   getMeals() {
     return this.mealService.getMeals();
   }
 
-  @Mutation(returns => MealType)
+  @Mutation(() => MealType)
   addMeal(@Args('createMealInput') createMealInput: CreateMealInput) {
     return this.mealService.addMeal(createMealInput);
   }
