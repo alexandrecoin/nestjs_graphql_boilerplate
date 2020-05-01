@@ -4,19 +4,22 @@ import { AppService } from './app.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
+import { MealModule } from './meal/meal.module';
+import { MealEntity } from './meal/meal.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: process.env.MONGODB_URL,
+      url: 'mongodb://localhost/sideproject',
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [],
+      entities: [MealEntity],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
     }),
+    MealModule,
   ],
   controllers: [AppController],
   providers: [AppService],
