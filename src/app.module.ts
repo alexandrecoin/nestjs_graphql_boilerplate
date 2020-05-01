@@ -11,7 +11,7 @@ import { MealEntity } from './meal/meal.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: process.env.MONGODB_URL,
+      url: 'mongodb://localhost/sideproject',
       synchronize: true,
       useUnifiedTopology: true,
       entities: [MealEntity],

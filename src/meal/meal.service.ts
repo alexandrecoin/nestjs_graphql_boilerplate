@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MealEntity } from './meal.entity';
 import { Repository } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class MealService {
@@ -10,7 +11,18 @@ export class MealService {
     private mealRepository: Repository<MealEntity>,
   ) {}
 
-  getMeal() {
-    return 'Ca maaaaarche'
+  async getMeals(): Promise<MealEntity[]> {
+    const meals = await this.mealRepository.find()
+    return meals;
+  }
+
+  async addMeal(createMealInput): Promise<MealEntity> {
+    const { name, description } = createMealInput;
+    const newMeal = this.mealRepository.create({
+      id: uuidv4(),
+      name,
+      description,
+    });
+    return this.mealRepository.save(newMeal);
   }
 }
