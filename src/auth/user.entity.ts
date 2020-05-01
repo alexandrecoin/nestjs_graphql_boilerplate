@@ -4,9 +4,11 @@ import {
   ObjectIdColumn,
   PrimaryColumn,
   Column,
+  Unique,
 } from 'typeorm';
 
 @Entity('User')
+@Unique(['username', 'email'])
 export class UserEntity extends BaseEntity {
   @ObjectIdColumn()
   _id: string;
