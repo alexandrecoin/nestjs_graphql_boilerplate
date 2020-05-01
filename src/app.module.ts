@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
+import { MealModule } from './meal/meal.module';
+import { MealEntity } from './meal/meal.entity';
 
 @Module({
   imports: [
@@ -12,11 +14,12 @@ import { GraphQLModule } from '@nestjs/graphql';
       url: process.env.MONGODB_URL,
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [],
+      entities: [MealEntity],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
     }),
+    MealModule,
   ],
   controllers: [AppController],
   providers: [AppService],
