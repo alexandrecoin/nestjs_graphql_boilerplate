@@ -9,9 +9,9 @@ export class AuthResolver {
   constructor(private authService: AuthService) {}
 
   @Mutation(() => UserType)
-  createUser(
+  signUp(
     @Args('createUserInput') createUserInput: CreateUserInputType,
   ): Promise<UserEntity> {
-    return this.authService.createUser(createUserInput);
+    return this.authService.signUp(createUserInput);
   }
 }
