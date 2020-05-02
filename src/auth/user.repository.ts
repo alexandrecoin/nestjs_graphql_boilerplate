@@ -1,10 +1,11 @@
 import { Repository, EntityRepository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { InternalServerErrorException } from '@nestjs/common';
-import { CreateUserInputType } from './create-user.input';
+import { CreateUserInputType } from './inputs/create-user.input';
 
 import { v4 as uuid } from 'uuid';
 import * as bcrypt from 'bcryptjs';
+import { LogUserInputType } from './inputs/log-user.input';
 
 @EntityRepository(UserEntity)
 export class UserRepository extends Repository<UserEntity> {

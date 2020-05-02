@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MealService } from './meal.service';
-import { CreateMealInput } from './create-meal.input';
-import { MealType } from './meal.types';
+import { CreateMealInput } from './inputs/create-meal.input';
+import { MealType } from './types/meal.types';
 
 @Resolver(() => MealType)
 export class MealResolver {
