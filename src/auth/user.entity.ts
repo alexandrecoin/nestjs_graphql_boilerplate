@@ -1,6 +1,5 @@
 import {
   Entity,
-  BaseEntity,
   ObjectIdColumn,
   PrimaryColumn,
   Column,
@@ -9,7 +8,7 @@ import {
 
 @Entity('User')
 @Unique(['username', 'email'])
-export class UserEntity extends BaseEntity {
+export class UserEntity {
   @ObjectIdColumn()
   _id: string;
 
