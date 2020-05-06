@@ -12,8 +12,13 @@ export class MealService {
   ) {}
 
   async getMeals(): Promise<MealEntity[]> {
-    const meals = await this.mealRepository.find()
+    const meals = await this.mealRepository.find();
     return meals;
+  }
+
+  async getMeal(name: string): Promise<MealEntity> {
+    const meal = await this.mealRepository.findOne(name);
+    return meal;
   }
 
   async addMeal(createMealInput): Promise<MealEntity> {

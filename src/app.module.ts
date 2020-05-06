@@ -19,9 +19,7 @@ import { UserEntity } from './auth/user.entity';
       entities: [MealEntity, UserEntity],
     }),
     GraphQLModule.forRoot({
-      autoSchemaFile: true,
-      debug: true,
-      playground: true
+      autoSchemaFile: true
     }),
     MealModule,
     AuthModule,
