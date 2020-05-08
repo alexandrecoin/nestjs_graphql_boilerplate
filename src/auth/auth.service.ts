@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserInputType } from './inputs/create-user.input';
+import { CreateUserInputType } from './create-user.input';
 import { UserRepository } from './user.repository';
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 
 @Injectable()
 export class AuthService {
@@ -11,11 +11,15 @@ export class AuthService {
     private userRepository: UserRepository,
   ) {}
 
-  signUp(createUserInput: CreateUserInputType): Promise<UserEntity> {
+  signUp(createUserInput: CreateUserInputType): Promise<User> {
     return this.userRepository.signUp(createUserInput);
   }
 
-  async getUsers(): Promise<UserEntity[]> {
+  async getUsers(): Promise<User[]> {
     return await this.userRepository.find();
+  }
+
+  async getUser(id) {
+    return await this.userRepository.findOne({id})
   }
 }

@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
+import { MealResolver } from './meal.resolver';
 import { MealService } from './meal.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MealEntity } from './meal.entity';
-import { MealResolver } from './meal.resolver';
+import { Meal } from './meal.entity';
 
 @Module({
-  providers: [MealService, MealResolver],
-  imports: [TypeOrmModule.forFeature([MealEntity])],
+  imports: [TypeOrmModule.forFeature([Meal])],
+  providers: [MealResolver, MealService],
 })
 export class MealModule {}

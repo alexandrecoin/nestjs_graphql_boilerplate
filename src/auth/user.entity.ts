@@ -8,7 +8,7 @@ import {
 
 @Entity('User')
 @Unique(['username', 'email'])
-export class UserEntity {
+export class User {
   @ObjectIdColumn()
   _id: string;
 

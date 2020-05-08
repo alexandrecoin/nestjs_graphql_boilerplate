@@ -1,7 +1,7 @@
 import { ObjectIdColumn, PrimaryColumn, Column, Entity } from 'typeorm';
 
-@Entity('Meal')
-export class MealEntity {
+@Entity()
+export class Meal {
   @ObjectIdColumn()
   _id: string;
 

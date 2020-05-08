@@ -1,26 +1,21 @@
 import { Module } from '@nestjs/common';
-// Libraries
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
-// App modules
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { MealModule } from './meal/meal.module';
+import { Meal } from './meal/meal.entity';
 import { AuthModule } from './auth/auth.module';
-// Entities
-import { MealEntity } from './meal/meal.entity';
-import { UserEntity } from './auth/user.entity';
+import { User } from './auth/user.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb://localhost/sideproject',
+      url: 'mongodb://localhost/side_meals',
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [MealEntity, UserEntity],
+      entities: [Meal, User]
     }),
-    GraphQLModule.forRoot({
-      autoSchemaFile: true
-    }),
+    GraphQLModule.forRoot({ autoSchemaFile: true }),
     MealModule,
     AuthModule,
   ],

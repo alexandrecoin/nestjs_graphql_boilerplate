@@ -1,14 +1,14 @@
 import { Repository, EntityRepository } from 'typeorm';
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 import { InternalServerErrorException } from '@nestjs/common';
-import { CreateUserInputType } from './inputs/create-user.input';
+import { CreateUserInputType } from './create-user.input';
 
 import { v4 as uuid } from 'uuid';
 import * as bcrypt from 'bcryptjs';
 
-@EntityRepository(UserEntity)
-export class UserRepository extends Repository<UserEntity> {
-  async signUp(createUserInput: CreateUserInputType): Promise<UserEntity> {
+@EntityRepository(User)
+export class UserRepository extends Repository<User> {
+  async signUp(createUserInput: CreateUserInputType): Promise<User> {
     const { username, email, password } = createUserInput;
 
     const user = this.create();
