@@ -3,16 +3,32 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserInputType } from './create-user.input';
 import { UserRepository } from './user.repository';
 import { User } from './user.entity';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
+    private readonly mailerService: MailerService,
   ) {}
 
-  signUp(createUserInput: CreateUserInputType): Promise<User> {
-    return this.userRepository.signUp(createUserInput);
+  async signUp(createUserInput: CreateUserInputType): Promise<User> {
+    const user = await this.userRepository.signUp(createUserInput);
+    this.mailerService
+      .sendMail({
+        to: user.email,
+        from: 'noreply@nestjs.com',
+        subject: 'Thank you for your subscription',
+        template: 'Signup',
+        context: {
+          username: user.username,
+        },
+      })
+      .catch(err => {
+        console.log({ err });
+      });
+    return user;
   }
 
   async getUsers(): Promise<User[]> {
@@ -20,6 +36,6 @@ export class AuthService {
   }
 
   async getUser(id) {
-    return await this.userRepository.findOne({id})
+    return await this.userRepository.findOne({ id });
   }
 }
