@@ -26,7 +26,13 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This side projects is only aimed at being a side-project to learn more about the following stack : 
+Front : Vue
+Back : NestJS + TypeScript + GraphQL
+
+Other than that, and once deployed, this project will allow its users to keep track of various things of their daily lives, with the first feature being the ability to keep track of their physical activity.
+
+
 
 ## Installation
 

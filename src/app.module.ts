@@ -6,9 +6,11 @@ import { MailerModule } from '@nestjs-modules/mailer';
 
 import { MealModule } from './meal/meal.module';
 import { AuthModule } from './auth/auth.module';
+import { PhysicalModule } from './physical/physical.module';
 
 import { Meal } from './meal/meal.entity';
 import { User } from './auth/user.entity';
+import { Physical } from './physical/physical.entity';
 
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 
@@ -20,7 +22,7 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
       url: 'mongodb://localhost/side_meals',
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [Meal, User],
+      entities: [Meal, User, Physical],
     }),
     GraphQLModule.forRoot({ autoSchemaFile: true }),
     MailerModule.forRoot({
@@ -39,6 +41,7 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
     }),
     MealModule,
     AuthModule,
+    PhysicalModule,
   ],
 })
 export class AppModule {}
