@@ -1,7 +1,7 @@
 import { ObjectIdColumn, PrimaryColumn, Column, Entity } from 'typeorm';
 
 @Entity()
-export class Meal {
+export class Article {
   @ObjectIdColumn()
   _id: string;
 
@@ -9,8 +9,17 @@ export class Meal {
   id: string;
 
   @Column()
-  name: string;
+  title: string;
 
   @Column()
   description: string;
+
+  @Column()
+  body: string;
+
+  @Column()
+  author: string;
+
+  @Column()
+  datePosted: string;
 }
