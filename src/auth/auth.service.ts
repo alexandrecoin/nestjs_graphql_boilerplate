@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from './user.entity';
@@ -42,9 +42,10 @@ export class AuthService {
     );
     // Throw GraphQL error if (!username)
     // Add role to the user once role is setup
+    if (!username) throw new UnauthorizedException();
     const payload: JwtPayload = { username };
     const accessToken = await this.jwtServive.sign(payload);
-    return  accessToken ;
+    return accessToken;
   }
 
   async getUsers(): Promise<User[]> {

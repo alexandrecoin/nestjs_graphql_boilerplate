@@ -22,11 +22,16 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
       useUnifiedTopology: true,
       entities: [Article, User],
     }),
-    GraphQLModule.forRoot({ autoSchemaFile: true }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: true,
+      context: ({ req }) => {
+        ({ req });
+      },
+    }),
     MailerModule.forRoot({
       transport: `smtps://${process.env.MAILER_DOMAIN}:${process.env.MAILER_PASSWORD}@${process.env.SMTP_PROVIDER}`,
       defaults: {
-        from:'"nest-modules" <modules@nestjs.com>',
+        from: '"nest-modules" <modules@nestjs.com>',
       },
       preview: true,
       template: {

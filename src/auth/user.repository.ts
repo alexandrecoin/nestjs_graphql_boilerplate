@@ -27,11 +27,10 @@ export class UserRepository extends Repository<User> {
   async validateUserPassword(
     createUserInput: CreateUserInputType,
   ): Promise<string> {
-    console.log('here')
     const { username, password } = createUserInput;
 
     const user = await this.findOne({ username });
-    if (user && user.validatePassword(password)) return user.username;
+    if (user && await user.validatePassword(password)) return user.username;
     else return null;
   }
 }
