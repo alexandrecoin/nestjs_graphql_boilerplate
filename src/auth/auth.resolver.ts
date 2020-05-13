@@ -10,7 +10,7 @@ export class AuthResolver {
 
   @Query(() => [UserType])
   getUsers(): Promise<User[]> {
-    return this.authService.getUsers()
+    return this.authService.getUsers();
   }
 
   @Query(() => UserType)
@@ -25,9 +25,11 @@ export class AuthResolver {
     return this.authService.signUp(createUserInput);
   }
 
+  // Check return type for @Mutation to match :Promise<{accessToken}> return from resolver/service
   @Mutation(() => String)
-  signIn(@Args('createUserInput') createUserInput: CreateUserInputType) {
+  signIn(
+    @Args('createUserInput') createUserInput: CreateUserInputType,
+  ): Promise<string> {
     return this.authService.signIn(createUserInput);
   }
-
 }
