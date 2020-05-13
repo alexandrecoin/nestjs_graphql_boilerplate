@@ -31,6 +31,12 @@ export class AuthService {
     return user;
   }
 
+  async signIn(createUserInput: CreateUserInputType) {
+    const username = await this.userRepository.validateUserPassword(createUserInput);
+    // Throw GraphQL error if (!username)
+    return username;
+  }
+
   async getUsers(): Promise<User[]> {
     return await this.userRepository.find();
   }

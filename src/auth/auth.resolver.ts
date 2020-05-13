@@ -25,4 +25,9 @@ export class AuthResolver {
     return this.authService.signUp(createUserInput);
   }
 
+  @Mutation(() => String)
+  signIn(@Args('createUserInput') createUserInput: CreateUserInputType) {
+    return this.authService.signIn(createUserInput);
+  }
+
 }

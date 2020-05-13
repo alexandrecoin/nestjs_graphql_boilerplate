@@ -23,4 +23,15 @@ export class UserRepository extends Repository<User> {
       throw new InternalServerErrorException();
     }
   }
+
+  async validateUserPassword(
+    createUserInput: CreateUserInputType,
+  ): Promise<string> {
+    console.log('here')
+    const { username, password } = createUserInput;
+
+    const user = await this.findOne({ username });
+    if (user && user.validatePassword(password)) return user.username;
+    else return null;
+  }
 }
