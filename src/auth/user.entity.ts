@@ -6,6 +6,7 @@ import {
   Unique,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import { Role } from './role.enum';
 
 @Entity('User')
 @Unique(['username', 'email'])
@@ -24,6 +25,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column()
+  role: Role.USER;
 
   async validatePassword(password: string): Promise<boolean> {
     return await bcrypt.compare(password, this.password)
