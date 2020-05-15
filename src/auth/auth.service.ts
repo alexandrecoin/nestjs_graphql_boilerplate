@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserInputType } from './create-user.input';
-import { UserRepository } from './user.repository';
+
 import { User } from './user.entity';
+import { UserRepository } from './user.repository';
+import { CreateUserInputType } from './create-user.input';
+
 import { MailerService } from '@nestjs-modules/mailer';
+import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from './jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -11,6 +15,7 @@ export class AuthService {
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
     private readonly mailerService: MailerService,
+    private readonly jwtServive: JwtService,
   ) {}
 
   async signUp(createUserInput: CreateUserInputType): Promise<User> {
@@ -31,10 +36,16 @@ export class AuthService {
     return user;
   }
 
-  async signIn(createUserInput: CreateUserInputType) {
-    const username = await this.userRepository.validateUserPassword(createUserInput);
+  async signIn(createUserInput: CreateUserInputType): Promise<string> {
+    const username = await this.userRepository.validateUserPassword(
+      createUserInput,
+    );
     // Throw GraphQL error if (!username)
-    return username;
+    // Add role to the user once role is setup
+    if (!username) throw new UnauthorizedException();
+    const payload: JwtPayload = { username };
+    const accessToken = await this.jwtServive.sign(payload);
+    return accessToken;
   }
 
   async getUsers(): Promise<User[]> {

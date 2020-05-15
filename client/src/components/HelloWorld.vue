@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <div v-for="meal in getMeals" :key="meal.id">{{ meal.id }} {{ meal.description }}</div>
+    <div v-for="meal in getArticles" :key="meal.id">{{ meal.id }} {{ meal.description }}</div>
   </div>
 </template>
 
@@ -10,14 +10,17 @@ import gql from 'graphql-tag';
 export default {
   name: 'HelloWorld',
   apollo: {
-    getMeals: gql`
+    getArticles: gql`
       query {
-        getMeals {
-          id
+        getArticles {
+          title
           description
         }
       }
     `,
+  },
+  created() {
+    console.log(this.getMeals)
   },
   props: {
     msg: String,
